@@ -7,24 +7,20 @@ function StockList({ onStockSelect }) {
   const [stocks, setStocks] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [limit, setLimit] = useState(50)
-  const [skip, setSkip] = useState(0)
-  const [hasMore, setHasMore] = useState(true)
+  const [hasLoaded, setHasLoaded] = useState(false)
 
   const loadStocks = async () => {
+    if (hasLoaded) return // Prevent multiple loads
+    
     setLoading(true)
     setError(null)
 
     try {
-      const result = await getAllStocks(limit, skip)
+      const result = await getAllStocks()
       
       if (result.success && result.data) {
-        if (result.data.length === 0) {
-          setHasMore(false)
-        } else {
-          setStocks(prev => [...prev, ...result.data])
-          setHasMore(result.data.length === limit)
-        }
+        setStocks(result.data)
+        setHasLoaded(true)
       } else {
         setError(result.error || 'Failed to load stocks')
       }
@@ -38,11 +34,7 @@ function StockList({ onStockSelect }) {
   useEffect(() => {
     loadStocks()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [skip])
-
-  const handleLoadMore = () => {
-    setSkip(prev => prev + limit)
-  }
+  }, [])
 
   const getStockName = (stock) => {
     return stock.Name || stock.name || stock.NAME || 'N/A'
@@ -155,15 +147,9 @@ function StockList({ onStockSelect }) {
         </div>
       )}
 
-      {hasMore && !loading && stocks.length > 0 && (
-        <button onClick={handleLoadMore} className="load-more-button">
-          Load More
-        </button>
-      )}
-
-      {!hasMore && stocks.length > 0 && (
+      {!loading && hasLoaded && stocks.length > 0 && (
         <div className="end-message">
-          No more stocks to load
+          Loaded {stocks.length} stocks
         </div>
       )}
     </div>

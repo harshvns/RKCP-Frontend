@@ -72,7 +72,9 @@ export const getStockByTicker = async (ticker) => {
  */
 export const searchStockByName = async (name) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/stock/search?name=${encodeURIComponent(name)}`);
+    // Wrap name in quotes as required by the API: name="stock_name"
+    const quotedName = `"${name}"`;
+    const response = await fetch(`${API_BASE_URL}/api/stock/search?name=${encodeURIComponent(quotedName)}`);
     
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
@@ -90,14 +92,12 @@ export const searchStockByName = async (name) => {
 };
 
 /**
- * Get all stocks with pagination
- * @param {number} limit - Number of stocks to fetch
- * @param {number} skip - Number of stocks to skip
+ * Get all stocks
  * @returns {Promise<Object>} Stocks data
  */
-export const getAllStocks = async (limit = 100, skip = 0) => {
+export const getAllStocks = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/stock?limit=${limit}&skip=${skip}`);
+    const response = await fetch(`${API_BASE_URL}/api/stock`);
     
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
@@ -127,8 +127,8 @@ export const getStockSuggestions = async (query, limit = 10) => {
       return [];
     }
 
-    // Get a larger set of stocks to filter from
-    const result = await getAllStocks(500, 0);
+    // Get all stocks to filter from
+    const result = await getAllStocks();
     
     if (!result.success || !result.data) {
       return [];
