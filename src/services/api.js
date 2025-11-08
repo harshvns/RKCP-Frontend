@@ -1,27 +1,39 @@
 // API service to connect to Vercel backend
 // Your deployed API URL: https://rkcp-score.vercel.app
-// In development, Vite proxy will handle the requests (see vite.config.js)
-// In production, use the full URL or set VITE_API_URL environment variable
 const PRODUCTION_API_URL = 'https://rkcp-score.vercel.app';
 
 // Get API base URL
-// Priority: 1. VITE_API_URL env var, 2. Empty string in dev (proxy), 3. Production URL (fallback)
-let API_BASE_URL = PRODUCTION_API_URL; // Default to production URL
-
-if (import.meta.env.VITE_API_URL) {
-  // Explicitly set via environment variable
-  API_BASE_URL = import.meta.env.VITE_API_URL;
-} else if (import.meta.env.DEV || import.meta.env.MODE === 'development') {
-  // Development mode - use empty string for Vite proxy
-  API_BASE_URL = '';
+// Priority: 1. VITE_API_URL env var, 2. Empty string in dev (localhost), 3. Production URL
+function getApiBaseUrl() {
+  // If explicitly set via environment variable, use it
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
+  // Check if we're running on localhost (development)
+  const isLocalhost = typeof window !== 'undefined' && 
+    (window.location.hostname === 'localhost' || 
+     window.location.hostname === '127.0.0.1' ||
+     window.location.hostname === '');
+  
+  // In development (localhost), use empty string for Vite proxy
+  if (isLocalhost) {
+    return '';
+  }
+  
+  // In production, always use production URL
+  return PRODUCTION_API_URL;
 }
 
-// Debug log
-console.log('API Configuration:', {
+const API_BASE_URL = getApiBaseUrl();
+
+// Debug log - always show what URL is being used
+console.log('🔗 API Configuration:', {
+  hostname: typeof window !== 'undefined' ? window.location.hostname : 'server',
   mode: import.meta.env.MODE,
-  dev: import.meta.env.DEV,
-  viteApiUrl: import.meta.env.VITE_API_URL,
-  apiBaseUrl: API_BASE_URL || '(using proxy)'
+  viteApiUrl: import.meta.env.VITE_API_URL || '(not set)',
+  apiBaseUrl: API_BASE_URL || '(using proxy)',
+  fullUrl: `${API_BASE_URL || '(proxy)'}/api/stock`
 });
 
 /**
