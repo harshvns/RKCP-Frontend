@@ -2,17 +2,27 @@
 // Your deployed API URL: https://rkcp-score.vercel.app
 // In development, Vite proxy will handle the requests (see vite.config.js)
 // In production, use the full URL or set VITE_API_URL environment variable
-const DEFAULT_API_URL = 'https://rkcp-score.vercel.app';
+const PRODUCTION_API_URL = 'https://rkcp-score.vercel.app';
 
 // Get API base URL
-// Priority: 1. VITE_API_URL env var, 2. Empty string in dev (proxy), 3. Default production URL
-const isDevelopment = import.meta.env.MODE === 'development' || import.meta.env.DEV === true;
-const API_BASE_URL = import.meta.env.VITE_API_URL || (isDevelopment ? '' : DEFAULT_API_URL);
+// Priority: 1. VITE_API_URL env var, 2. Empty string in dev (proxy), 3. Production URL (fallback)
+let API_BASE_URL = PRODUCTION_API_URL; // Default to production URL
 
-// Debug log (remove in production if needed)
-if (import.meta.env.DEV) {
-  console.log('API_BASE_URL:', API_BASE_URL || '(using proxy)');
+if (import.meta.env.VITE_API_URL) {
+  // Explicitly set via environment variable
+  API_BASE_URL = import.meta.env.VITE_API_URL;
+} else if (import.meta.env.DEV || import.meta.env.MODE === 'development') {
+  // Development mode - use empty string for Vite proxy
+  API_BASE_URL = '';
 }
+
+// Debug log
+console.log('API Configuration:', {
+  mode: import.meta.env.MODE,
+  dev: import.meta.env.DEV,
+  viteApiUrl: import.meta.env.VITE_API_URL,
+  apiBaseUrl: API_BASE_URL || '(using proxy)'
+});
 
 /**
  * Fetch stock by ticker symbol
