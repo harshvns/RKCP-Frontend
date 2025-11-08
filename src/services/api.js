@@ -11,17 +11,22 @@ function getApiBaseUrl() {
   }
   
   // Check if we're running on localhost (development)
-  const isLocalhost = typeof window !== 'undefined' && 
-    (window.location.hostname === 'localhost' || 
-     window.location.hostname === '127.0.0.1' ||
-     window.location.hostname === '');
-  
-  // In development (localhost), use empty string for Vite proxy
-  if (isLocalhost) {
-    return '';
+  // This check runs in the browser, so window should be available
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    const isLocalhost = hostname === 'localhost' || 
+                        hostname === '127.0.0.1' ||
+                        hostname === '' ||
+                        hostname.startsWith('192.168.') ||
+                        hostname.startsWith('10.0.');
+    
+    // In development (localhost), use empty string for Vite proxy
+    if (isLocalhost) {
+      return '';
+    }
   }
   
-  // In production, always use production URL
+  // In production (any other hostname), always use production URL
   return PRODUCTION_API_URL;
 }
 
