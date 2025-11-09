@@ -168,3 +168,26 @@ export const healthCheck = async () => {
     throw error;
   }
 };
+
+/**
+ * Get top 10 stocks by RKCP score with trend analysis (50 DMA and 200 DMA)
+ * @returns {Promise<Object>} Top 10 stocks with trend analysis
+ */
+export const getTop10StocksWithTrend = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/stock/top10`);
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+      throw new Error(`Network error: Unable to connect to API at ${API_BASE_URL}. Please check your internet connection and API URL.`);
+    }
+    throw error;
+  }
+};

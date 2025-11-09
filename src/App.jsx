@@ -2,17 +2,24 @@ import { useState } from 'react'
 import StockSearch from './components/StockSearch'
 import StockList from './components/StockList'
 import StockDetails from './components/StockDetails'
+import Top10Stocks from './components/Top10Stocks'
 import './App.css'
 
 function App() {
   const [selectedStock, setSelectedStock] = useState(null)
-  const [view, setView] = useState('search') // 'search', 'list', 'details'
+  const [view, setView] = useState('top10') // 'search', 'list', 'top10', 'details'
 
   return (
     <div className="app">
       <header className="app-header">
         <h1>📈 Stock Market Dashboard</h1>
         <nav className="nav-tabs">
+          <button 
+            className={view === 'top10' ? 'active' : ''} 
+            onClick={() => { setView('top10'); setSelectedStock(null); }}
+          >
+            Top 10
+          </button>
           <button 
             className={view === 'search' ? 'active' : ''} 
             onClick={() => { setView('search'); setSelectedStock(null); }}
@@ -29,6 +36,15 @@ function App() {
       </header>
 
       <main className="app-main">
+        {view === 'top10' && (
+          <Top10Stocks 
+            onStockSelect={(stock) => {
+              setSelectedStock(stock)
+              setView('details')
+            }}
+          />
+        )}
+        
         {view === 'search' && (
           <StockSearch 
             onStockSelect={(stock) => {
@@ -50,7 +66,7 @@ function App() {
         {view === 'details' && selectedStock && (
           <StockDetails 
             stock={selectedStock}
-            onBack={() => setView('search')}
+            onBack={() => setView('top10')}
           />
         )}
       </main>
