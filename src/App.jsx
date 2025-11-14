@@ -3,17 +3,21 @@ import StockSearch from './components/StockSearch'
 import StockList from './components/StockList'
 import StockDetails from './components/StockDetails'
 import Top10Stocks from './components/Top10Stocks'
+import About from './components/About'
+import ThemeToggle from './components/ThemeToggle'
 import './App.css'
 
 function App() {
   const [selectedStock, setSelectedStock] = useState(null)
-  const [view, setView] = useState('top10') // 'search', 'list', 'top10', 'details'
+  const [view, setView] = useState('top10') // 'search', 'list', 'top10', 'details', 'about'
 
   return (
     <div className="app">
       <header className="app-header">
-        <h1>📈 Stock Market Dashboard</h1>
-        <nav className="nav-tabs">
+        <div className="app-header-content">
+          <div>
+            <h1>📈 Stock Market Dashboard</h1>
+            <nav className="nav-tabs">
           <button 
             className={view === 'top10' ? 'active' : ''} 
             onClick={() => { setView('top10'); setSelectedStock(null); }}
@@ -32,7 +36,18 @@ function App() {
           >
             All Stocks
           </button>
+          <button 
+            className={view === 'about' ? 'active' : ''} 
+            onClick={() => { setView('about'); setSelectedStock(null); }}
+          >
+            About
+          </button>
         </nav>
+          </div>
+          <div className="header-actions">
+            <ThemeToggle />
+          </div>
+        </div>
       </header>
 
       <main className="app-main">
@@ -68,6 +83,10 @@ function App() {
             stock={selectedStock}
             onBack={() => setView('top10')}
           />
+        )}
+        
+        {view === 'about' && (
+          <About />
         )}
       </main>
     </div>

@@ -21,19 +21,20 @@
 
 .refresh-button {
   padding: 0.625rem 1.25rem;
-  background: var(--primary-color);
+  background: var(--gradient-primary);
   color: white;
   border: none;
   border-radius: 0.5rem;
   font-size: 0.9375rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow);
 }
 
 .refresh-button:hover:not(:disabled) {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .refresh-button:disabled {
@@ -51,10 +52,12 @@
 }
 
 .error-message {
-  color: #ef4444;
-  background: #fee2e2;
+  color: var(--error-color);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--error-color);
   border-radius: 0.5rem;
   padding: 1rem;
+  transition: all 0.3s ease;
 }
 
 .top10-grid {
@@ -65,19 +68,35 @@
 
 .top10-card {
   background: var(--card-bg);
-  border-radius: 0.75rem;
+  border-radius: 0.875rem;
   padding: 1.5rem;
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
 
+.top10-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.top10-card:hover::before {
+  transform: scaleX(1);
+}
+
 .top10-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
   border-color: var(--primary-color);
 }
 
@@ -85,7 +104,7 @@
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  background: var(--primary-color);
+  background: var(--gradient-primary);
   color: white;
   width: 2.5rem;
   height: 2.5rem;
@@ -95,6 +114,12 @@
   justify-content: center;
   font-weight: 700;
   font-size: 0.875rem;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+}
+
+.top10-card:hover .card-rank {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .card-content {
@@ -117,6 +142,18 @@
   background: var(--primary-light);
   border-radius: 0.5rem;
   margin-bottom: 1rem;
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+
+.top10-card:hover .card-rkcp-score {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.top10-card:hover .card-rkcp-score .rkcp-label,
+.top10-card:hover .card-rkcp-score .rkcp-value {
+  color: white;
 }
 
 .rkcp-label {
