@@ -41,7 +41,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <div className="app-header-content">
-          <div>
+          <div className="header-left-section">
             <div className="header-title-section">
               <img 
                 src="/rkcp-logo.png" 
@@ -53,31 +53,31 @@ function App() {
               <h1>Stock Market Dashboard</h1>
             </div>
             <nav className="nav-tabs">
-          <button 
-            className={view === 'top10' ? 'active' : ''} 
-            onClick={() => { setView('top10'); setSelectedStock(null); }}
-          >
-            Top 10
-          </button>
-          <button 
-            className={view === 'search' ? 'active' : ''} 
-            onClick={() => { setView('search'); setSelectedStock(null); }}
-          >
-            Search
-          </button>
-          <button 
-            className={view === 'list' ? 'active' : ''} 
-            onClick={() => { setView('list'); setSelectedStock(null); }}
-          >
-            All Stocks
-          </button>
-          <button 
-            className={view === 'about' ? 'active' : ''} 
-            onClick={() => { setView('about'); setSelectedStock(null); }}
-          >
-            About
-          </button>
-        </nav>
+              <button 
+                className={view === 'top10' ? 'active' : ''} 
+                onClick={() => { setView('top10'); setSelectedStock(null); }}
+              >
+                Top 10
+              </button>
+              <button 
+                className={view === 'search' ? 'active' : ''} 
+                onClick={() => { setView('search'); setSelectedStock(null); }}
+              >
+                Search
+              </button>
+              <button 
+                className={view === 'list' ? 'active' : ''} 
+                onClick={() => { setView('list'); setSelectedStock(null); }}
+              >
+                All Stocks
+              </button>
+              <button 
+                className={view === 'about' ? 'active' : ''} 
+                onClick={() => { setView('about'); setSelectedStock(null); }}
+              >
+                About
+              </button>
+            </nav>
           </div>
           <div className="header-actions">
             <img 
