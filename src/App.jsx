@@ -10,13 +10,48 @@ import './App.css'
 function App() {
   const [selectedStock, setSelectedStock] = useState(null)
   const [view, setView] = useState('top10') // 'search', 'list', 'top10', 'details', 'about'
+  const [logoLoaded, setLogoLoaded] = useState(false)
+  const [logoError, setLogoError] = useState(false)
+
+  // Try to load logo - will attempt different extensions via onError
+  const handleLogoLoad = () => {
+    setLogoLoaded(true)
+    setLogoError(false)
+  }
+
+  const handleLogoError = (e) => {
+    const currentSrc = e.target.src
+    const baseUrl = window.location.origin
+    
+    // Try SVG if PNG fails
+    if (currentSrc.includes('.png')) {
+      e.target.src = '/rkcp-logo.svg'
+    } else if (currentSrc.includes('.svg')) {
+      // Try JPG if SVG fails
+      e.target.src = '/rkcp-logo.jpg'
+    } else {
+      // All attempts failed - hide logo
+      setLogoError(true)
+      setLogoLoaded(false)
+      console.warn('RKCP logo not found. Please add rkcp-logo.png, rkcp-logo.svg, or rkcp-logo.jpg to the public folder.')
+    }
+  }
 
   return (
     <div className="app">
       <header className="app-header">
         <div className="app-header-content">
           <div>
-            <h1>📈 Stock Market Dashboard</h1>
+            <div className="header-title-section">
+              <img 
+                src="/rkcp-logo.png" 
+                alt="RKCP Logo" 
+                className={`rkcp-logo ${logoError ? 'logo-hidden' : ''}`}
+                onLoad={handleLogoLoad}
+                onError={handleLogoError}
+              />
+              <h1>Stock Market Dashboard</h1>
+            </div>
             <nav className="nav-tabs">
           <button 
             className={view === 'top10' ? 'active' : ''} 
@@ -45,6 +80,21 @@ function App() {
         </nav>
           </div>
           <div className="header-actions">
+            <img 
+              src="/college-logo.png" 
+              alt="MMM University Logo" 
+              className="college-logo"
+              onError={(e) => {
+                // Try SVG if PNG fails
+                if (e.target.src.includes('.png')) {
+                  e.target.src = '/college-logo.svg'
+                } else if (e.target.src.includes('.svg')) {
+                  e.target.src = '/college-logo.jpg'
+                } else {
+                  e.target.style.display = 'none'
+                }
+              }}
+            />
             <ThemeToggle />
           </div>
         </div>

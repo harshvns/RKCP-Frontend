@@ -1,12 +1,34 @@
 .about-page {
   width: 100%;
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-page::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background-image: url('/college-logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.08;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(0.5px);
 }
 
 .about-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .about-title {
@@ -60,6 +82,38 @@
 
 .about-intro p:last-child {
   margin-bottom: 0;
+}
+
+.score-interpretation {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: var(--primary-light);
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.interpretation-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.interpretation-list li {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.interpretation-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 
 .parameters-section {
@@ -166,50 +220,28 @@
   gap: 1rem;
 }
 
-.parameter-terminology {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.parameter-title {
   padding: 0.75rem;
   background: var(--primary-light);
   border-radius: 0.5rem;
   border-left: 3px solid var(--primary-color);
-  position: relative;
+  margin-bottom: 1rem;
   transition: all 0.3s ease;
 }
 
-.parameter-terminology::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--gradient-primary);
-  border-radius: 0.5rem 0 0 0.5rem;
-}
-
-.parameter-card:hover .parameter-terminology {
-  background: var(--gradient-primary);
-  color: white;
-}
-
-.parameter-card:hover .parameter-terminology .terminology-value {
-  color: white;
-}
-
-.terminology-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.terminology-value {
+.parameter-title strong {
   font-size: 1rem;
   font-weight: 600;
   color: var(--primary-color);
+  line-height: 1.5;
+}
+
+.parameter-card:hover .parameter-title {
+  background: var(--gradient-primary);
+}
+
+.parameter-card:hover .parameter-title strong {
+  color: white;
 }
 
 .parameter-explanation {
@@ -223,66 +255,6 @@
   margin: 0;
 }
 
-.scoring-section {
-  background: var(--card-bg);
-  border-radius: 0.875rem;
-  padding: 2rem;
-  margin-bottom: 3rem;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-light);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.scoring-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gradient-primary);
-}
-
-.scoring-section h2 {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-  letter-spacing: -0.01em;
-}
-
-.scoring-info p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
-
-.scoring-points {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 1.5rem;
-}
-
-.scoring-points li {
-  font-size: 0.9375rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  padding: 0.5rem 0;
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-.scoring-points li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--primary-color);
-  font-weight: 700;
-  font-size: 1rem;
-}
 
 .disclaimer-section {
   background: var(--card-bg);
@@ -320,7 +292,6 @@
   }
 
   .about-intro,
-  .scoring-section,
   .disclaimer-section {
     padding: 1.5rem;
   }

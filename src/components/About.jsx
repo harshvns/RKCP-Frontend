@@ -1,67 +1,67 @@
 import './About.css'
 
 function About() {
-  // Define the 10 RKCP parameters with their terminology and explanations
+  // Define the 10 RKCP parameters with their detailed explanations
   const parameters = [
     {
       id: 1,
       name: 'Mark 1',
-      terminology: 'Revenue Growth',
-      explanation: 'Measures the year-over-year percentage increase in a company\'s total revenue. Indicates the company\'s ability to grow its sales and market presence. Higher growth rates suggest strong business momentum and market demand for the company\'s products or services.'
+      title: 'Net Income & Net Profit Margin (NPM) Growth',
+      explanation: 'Net Income and Net Profit Margin should be positive and higher than the previous year. This shows improved profitability and better cost efficiency.'
     },
     {
       id: 2,
       name: 'Mark 2',
-      terminology: 'Profitability Ratio',
-      explanation: 'Evaluates the company\'s ability to generate profits relative to its revenue, assets, or equity. Common metrics include Net Profit Margin, Return on Equity (ROE), or Return on Assets (ROA). Higher ratios indicate better efficiency in converting sales into profits.'
+      title: 'Operating Cash Flow (CFO) & Cash Flow Margin (CFM)',
+      explanation: 'Both Operating Cash Flow and Cash Flow Margin should be positive and show growth compared to last year. This indicates strong cash generation from core operations.'
     },
     {
       id: 3,
       name: 'Mark 3',
-      terminology: 'Debt-to-Equity Ratio',
-      explanation: 'Compares a company\'s total debt to its shareholders\' equity. A lower ratio indicates less financial risk and better financial stability. It shows how much the company relies on debt financing versus equity financing. Lower is generally better, indicating less financial leverage.'
+      title: 'Operating Profit Margin (OPM)',
+      explanation: 'Operating Profit Margin should be positive. A positive OPM means the company is earning profit from its main business activities.'
     },
     {
       id: 4,
       name: 'Mark 4',
-      terminology: 'Current Ratio / Liquidity',
-      explanation: 'Measures a company\'s ability to pay short-term obligations with its current assets. A ratio above 1 indicates the company can cover its short-term liabilities. Higher ratios suggest better liquidity and financial flexibility, though excessively high ratios may indicate inefficient use of assets.'
+      title: 'Long-Term Debt-to-Equity Ratio',
+      explanation: 'The Long-Term D/E Ratio should be lower than the previous year. This suggests reduced financial risk and better leverage management.'
     },
     {
       id: 5,
       name: 'Mark 5',
-      terminology: 'Price-to-Earnings (P/E) Ratio',
-      explanation: 'Compares a company\'s stock price to its earnings per share. Lower P/E ratios may indicate undervaluation, while higher ratios suggest the market expects future growth. It helps investors assess whether a stock is overvalued or undervalued relative to its earnings.'
+      title: 'CFO > Net Income (Quality of Earnings)',
+      explanation: 'Operating Cash Flow should be greater than Net Income. This indicates high earnings quality and genuine cash-backed profits.'
     },
     {
       id: 6,
       name: 'Mark 6',
-      terminology: 'Earnings Per Share (EPS) Growth',
-      explanation: 'Measures the rate at which a company\'s earnings per share are increasing over time. Consistent EPS growth indicates improving profitability and is a key indicator of a company\'s financial health and potential for future dividend payments or stock price appreciation.'
+      title: 'Current Ratio',
+      explanation: 'The Current Ratio should be higher compared to the previous year. A higher Current Ratio means better short-term liquidity and financial stability.'
     },
     {
       id: 7,
       name: 'Mark 7',
-      terminology: 'Market Capitalization',
-      explanation: 'The total market value of a company\'s outstanding shares, calculated by multiplying the current stock price by the total number of shares. It categorizes companies as large-cap, mid-cap, or small-cap, which helps assess investment risk and growth potential.'
+      title: 'Asset Turnover Ratio',
+      explanation: 'The Asset Turnover Ratio should increase year-over-year. This reflects better efficiency in using assets to generate revenue.'
     },
     {
       id: 8,
       name: 'Mark 8',
-      terminology: 'Dividend Yield',
-      explanation: 'The annual dividend payment divided by the stock\'s current price, expressed as a percentage. It indicates the return on investment from dividends. Higher yields can be attractive to income-seeking investors, though very high yields may signal financial distress.'
+      title: 'PEG Ratio < 1',
+      explanation: 'A PEG Ratio less than 1 means the company offers good growth at a fair valuation. This helps identify undervalued growth stocks.'
     },
     {
       id: 9,
       name: 'Mark 9',
-      terminology: 'Price-to-Book (P/B) Ratio',
-      explanation: 'Compares a company\'s market value to its book value (assets minus liabilities). A P/B ratio below 1 may indicate the stock is undervalued. It helps investors identify potentially undervalued stocks by comparing market price to the company\'s accounting value.'
+      title: 'P/E Ratio < Sector P/E',
+      explanation: 'The company\'s P/E should be lower than the sector average, indicating relative undervaluation.'
     },
     {
       id: 10,
       name: 'Mark 10',
-      terminology: 'Operating Margin',
-      explanation: 'Measures operating income as a percentage of revenue, showing how efficiently a company converts sales into operating profits. Higher margins indicate better cost control and pricing power. It reflects the company\'s core business profitability before interest and taxes.'
+      title: 'Quarterly Profit Growth (YoY)',
+      explanation: 'Quarterly profits should show growth compared to the same quarter last year. This captures recent performance momentum and business improvement.'
     }
   ]
 
@@ -71,24 +71,36 @@ function About() {
         <h1 className="about-title">About RKCP Scoring System</h1>
         
         <section className="about-intro">
-          <h2>What is RKCP Score?</h2>
+          <h2>What is the RKCP Score?</h2>
           <p>
-            The RKCP (Research-based Key Company Parameters) Score is a comprehensive stock evaluation system 
-            that analyzes companies across 10 critical financial and market parameters. Each parameter is 
-            evaluated and assigned a mark, with the total score calculated out of 10 points.
+            The RKCP Score is a modern and simplified stock evaluation system designed to help investors 
+            understand a company's financial strength, growth potential, and market performance in an 
+            easy and clear way.
           </p>
           <p>
-            This scoring methodology helps investors quickly assess a company's overall financial health, 
-            growth potential, and investment attractiveness by consolidating multiple key metrics into a 
-            single, easy-to-understand score.
+            The model evaluates companies using 10 carefully selected financial and technical parameters, 
+            each contributing 1 mark. The final RKCP Score is calculated out of 10, making it simple to 
+            compare different companies and identify strong investment opportunities.
+          </p>
+          <div className="score-interpretation">
+            <p><strong>To make interpretation easy:</strong></p>
+            <ul className="interpretation-list">
+              <li><strong>Score 8 to 10</strong> → Good Stock (strong fundamentals & growth)</li>
+              <li><strong>Score 4 to 7</strong> → Average Stock (moderate performance)</li>
+              <li><strong>Score 0 to 3</strong> → Weak Stock (poor financial condition)</li>
+            </ul>
+          </div>
+          <p>
+            The RKCP system combines fundamental analysis with technical indicators, offering a 
+            complete, reliable, and user-friendly tool for evaluating stock quality and investment potential.
           </p>
         </section>
 
         <section className="parameters-section">
           <h2>The 10 RKCP Parameters</h2>
           <p className="section-description">
-            Each parameter is carefully evaluated to provide a holistic view of a company's performance. 
-            Below are detailed explanations of all 10 parameters used in the RKCP scoring system.
+            Each parameter gives a different perspective on the company's performance. Together, they 
+            provide a holistic and balanced view of strength, growth, valuation, and stability.
           </p>
 
           <div className="parameters-grid">
@@ -99,9 +111,8 @@ function About() {
                   <h3 className="parameter-name">{param.name}</h3>
                 </div>
                 <div className="parameter-content">
-                  <div className="parameter-terminology">
-                    <span className="terminology-label">Terminology:</span>
-                    <span className="terminology-value">{param.terminology}</span>
+                  <div className="parameter-title">
+                    <strong>{param.title}</strong>
                   </div>
                   <div className="parameter-explanation">
                     <p>{param.explanation}</p>
@@ -109,23 +120,6 @@ function About() {
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-
-        <section className="scoring-section">
-          <h2>How the Score is Calculated</h2>
-          <div className="scoring-info">
-            <p>
-              Each of the 10 parameters is evaluated independently and assigned a mark. The marks are then 
-              aggregated to calculate the <strong>Total Mark out of 10</strong>, which represents the 
-              RKCP Score.
-            </p>
-            <ul className="scoring-points">
-              <li>Each parameter contributes to the overall score</li>
-              <li>Higher scores indicate stronger financial performance across multiple metrics</li>
-              <li>The score is updated regularly to reflect current market conditions</li>
-              <li>Stocks are ranked by their RKCP Score, with the top 10 displayed on the dashboard</li>
-            </ul>
           </div>
         </section>
 
@@ -144,4 +138,6 @@ function About() {
 }
 
 export default About
+
+
 

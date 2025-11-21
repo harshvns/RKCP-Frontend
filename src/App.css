@@ -26,6 +26,40 @@
   gap: 1rem;
 }
 
+.header-title-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rkcp-logo {
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.rkcp-logo.logo-hidden {
+  display: none;
+}
+
+.rkcp-logo:hover {
+  transform: scale(1.05);
+}
+
+.college-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  margin-right: 1rem;
+}
+
+.college-logo:hover {
+  transform: scale(1.05);
+}
+
 .app-header h1 {
   font-size: 1.75rem;
   font-weight: 700;
@@ -33,7 +67,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 1rem;
+  margin: 0;
   letter-spacing: -0.02em;
   display: flex;
   align-items: center;
@@ -112,6 +146,15 @@
 
   .app-header h1 {
     font-size: 1.5rem;
+  }
+
+  .rkcp-logo {
+    height: 60px;
+  }
+
+  .college-logo {
+    height: 45px;
+    margin-right: 0.5rem;
   }
 
   .app-header-content {
